@@ -81,7 +81,7 @@ class CDC(object):
     def install(self, pip_args=None):
         """Install the program and put links in place."""
         if path.isdir(self.env):
-            print("<FG_RED>This seems to already be installed.<END>")
+            print_pretty("<FG_RED>This seems to already be installed.<END>")
         else:
             print_pretty("<FG_BLUE>Creating environment {}...<END>\n".format(self.env))
             self.create_env()
