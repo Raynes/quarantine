@@ -16,7 +16,7 @@ setup(
     url='https://github.com/Raynes/quarantine',
     license='MIT',
     install_requires=requirements,
-    entry_points= """
+    entry_points="""
     [console_scripts]
     quarantine=quarantine.__main__:cli
     """
