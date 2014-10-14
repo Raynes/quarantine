@@ -1,5 +1,7 @@
 import click
+from pycolorterm.pycolorterm import print_pretty
 from quarantine.cdc import CDC
+from sh import ErrorReturnCode
 
 
 @click.group()
@@ -13,7 +15,11 @@ def cli():
 def install(name, pip_args):
     """Install the package. Pip args specified with --."""
     cdc = CDC(name)
-    cdc.install(pip_args)
+    try:
+        cdc.install(pip_args)
+    except ErrorReturnCode as e:
+        print_pretty("<FG_RED>Something went wrong! Rolling back...<END>")
+        cdc.uninstall()
 
 @cli.command()
 @click.argument('name')

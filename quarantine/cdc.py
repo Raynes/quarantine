@@ -69,12 +69,14 @@ class CDC(object):
             link = path.join(ENV_BIN, path.basename(link))
             print_pretty("<FG_BLUE>Removing link {}...<END>".format(link))
             os.remove(link)
-
+            
     def uninstall(self):
         """Uninstall the environment and links."""
-        self.remove_links()
-        print_pretty("<FG_BLUE>Removing env {}...<END>".format(self.env))
-        shutil.rmtree(self.env)
+        if path.isdir(self.env_bin):
+            self.remove_links()
+        if path.isdir(self.env):
+            print_pretty("<FG_BLUE>Removing env {}...<END>".format(self.env))
+            shutil.rmtree(self.env)
 
     def install(self, pip_args=None):
         """Install the program and put links in place."""
@@ -85,4 +87,3 @@ class CDC(object):
             self.create_env()
             self.install_program(pip_args)
             self.create_links()
-
